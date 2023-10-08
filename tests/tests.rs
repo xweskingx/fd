@@ -1361,6 +1361,34 @@ fn test_type_empty() {
     te.assert_output(&["--type", "empty", "--type", "directory"], "dir_empty/");
 }
 
+/// MIME types (--mimetype)
+#[test]
+fn test_mimetype() {
+    let te = TestEnv::new(
+        &["mimes"],
+        &[
+            "mimes/index.html",
+            "cli.rs",
+            "mimes/some-video.webm",
+            "word.docx",
+        ],
+    );
+
+    te.assert_output(&["--mimetype", "html"], "mimes/index.html");
+
+    te.assert_output(
+        &["-m", "rust", "-m", "doc"],
+        "cli.rs
+        word.docx",
+    );
+
+    te.assert_output(
+        &["-m", "text/x-rust", "-m", "video/webm"],
+        "cli.rs
+        mimes/some-video.webm",
+    );
+}
+
 /// File extension (--extension)
 #[test]
 fn test_extension() {

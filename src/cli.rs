@@ -357,6 +357,20 @@ pub struct Opts {
     /// If you want to search for files without extension,
     /// you can use the regex '^[^.]+$' as a normal search pattern.
     #[arg(
+        long = "mimetype",
+        short = 'm',
+        value_name = "mime",
+        help = "Filter by mimetype",
+        long_help
+    )]
+    pub mime_types: Option<Vec<String>>,
+
+    /// (Additionally) filter search results by their file extension. Multiple
+    /// allowable file extensions can be specified.
+    ///
+    /// If you want to search for files without extension,
+    /// you can use the regex '^[^.]+$' as a normal search pattern.
+    #[arg(
         long = "extension",
         short = 'e',
         value_name = "ext",
