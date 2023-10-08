@@ -85,6 +85,11 @@ pub struct Config {
     /// The value (if present) will be a lowercase string without leading dots.
     pub extensions: Option<RegexSet>,
 
+    /// The mime types to search for. Only entries matching the mime types will be included.
+    ///
+    /// The value (if present) will be a mime type
+    pub mime_types: Option<RegexSet>,
+
     /// If a value is supplied, each item found will be used to generate and execute commands.
     pub command: Option<Arc<CommandSet>>,
 

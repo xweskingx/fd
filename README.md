@@ -96,7 +96,7 @@ testenv/mod.rs
 tests.rs
 ```
 
-### Searching for a particular file extension
+### Searching for a particular file extension or mime type
 
 Often, we are interested in all files of a particular type. This can be done with the `-e` (or
 `--extension`) option. Here, we search for all Markdown files in the fd repository:
@@ -110,6 +110,16 @@ README.md
 The `-e` option can be used in combination with a search pattern:
 ``` bash
 > fd -e rs mod
+src/fshelper/mod.rs
+src/lscolors/mod.rs
+tests/testenv/mod.rs
+```
+
+Similarly, to search for files of a specific mime type, use the `-m` (or `--mimetype`) option.
+Mimetypes 
+
+``` bash
+> fd -m text/x-rust mod
 src/fshelper/mod.rs
 src/lscolors/mod.rs
 tests/testenv/mod.rs
@@ -315,6 +325,7 @@ Options:
   -E, --exclude <pattern>          Exclude entries that match the given glob pattern
   -t, --type <filetype>            Filter by type: file (f), directory (d), symlink (l),
                                    executable (x), empty (e), socket (s), pipe (p)
+  -m, --mimetype <mime>            Filter by file mime type
   -e, --extension <ext>            Filter by file extension
   -S, --size <size>                Limit results based on the size of files
       --changed-within <date|dur>  Filter by file modification time (newer than)

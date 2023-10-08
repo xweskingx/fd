@@ -282,6 +282,11 @@ fn construct_config(mut opts: Opts, pattern_regexps: &[String]) -> Result<Config
 
             file_types
         }),
+        mime_types: opts
+            .mime_types
+            .as_ref()
+            .map(|mimes| RegexSetBuilder::new(mimes).case_insensitive(true).build())
+            .transpose()?,
         extensions: opts
             .extensions
             .as_ref()

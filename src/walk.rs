@@ -454,6 +454,21 @@ fn spawn_senders(
                 return ignore::WalkState::Continue;
             }
 
+            if let Some(ref mimes_regex) = config.mime_types {
+                if let Ok(Some(kind)) = infer::get_from_path(entry_path) {
+                    if !mimes_regex.is_match(kind.mime_type().as_bytes()) {
+                        return ignore::WalkState::Continue;
+                    }
+                } else {
+                    if !mime_guess::from_path(entry_path)
+                        .iter()
+                        .any(|mime| mimes_regex.is_match(mime.essence_str().as_bytes()))
+                    {
+                        return ignore::WalkState::Continue;
+                    }
+                }
+            }
+
             // Filter out unwanted extensions.
             if let Some(ref exts_regex) = config.extensions {
                 if let Some(path_str) = entry_path.file_name() {
